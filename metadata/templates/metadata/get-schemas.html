@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Displaying Schemas{% endblock title %}
+
+{% block menu %}
+  <li><a href="/schema">Schema</a></li>
+  <ul>
+    <li><a href='/schema'>Create Schema</a></li>
+    <li><a href='/get-schemas'>Show Schemas</a></li>
+  </ul>
+  <li><a href="/credential-definition">Credential Definition</a></li>
+  <li><a href="/revocation-registry">Revocation Registry</a></li>
+{% endblock menu %} 
+
+{% block content %}
+  <h1>List of all Schemas on the Ledger</h1>
+
+  <table> 
+    <tr>
+      <th>Schema Identifiers</th>
+    </tr>
+    {% for schema_id in schemas %}
+    <tr>
+      <td><strong><a href='/schema/{{ schema_id.schema_id }}'>{{ schema_id.schema_id }}</a></strong></td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td><strong>{% now "m-d-y" %}</strong></td>
+      <td>There are no Schemas defined</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+
+{% endblock content %}

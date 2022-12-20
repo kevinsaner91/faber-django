@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Displaying Schemas{% endblock title %}
+
+{% block menu %}
+  <li><a href="/schema">Schema</a></li>
+  <ul>
+    <li><a href='/schema'>Create Schema</a></li>
+    <li><a href='/get-schemas'>Load Schemas</a></li>
+  </ul>
+  <li><a href="/credential-definition">Credential Definition</a></li>
+  <li><a href="/revocation-registry">Revocation Registry</a></li>
+{% endblock menu %}  
+
+{% block content %}
+    <h1>Schema: {{ schema_id }}</h1>
+    <textarea id="textarea" rows="10" cols="70" disabled>
+        {{ schema_detail }}
+    </textarea>
+
+{% endblock content %}
