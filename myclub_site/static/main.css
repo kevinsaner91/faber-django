@@ -1,0 +1,144 @@
+@charset "utf-8";
+#header {
+    border-style: none;
+    width: 800px;
+    height: auto;
+}
+#wrapper {
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f0ecec;
+    width: 800px;   
+}
+body {
+    background-color: #E0E0E0;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 0.9em;
+    text-align: justify;
+    color: #474747;
+}
+h1 {
+    color: #270c39;
+}
+#footer {
+    text-align: center;
+    font-size: 0.8em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #FFFFFF;
+    border-top: thin solid #BBBBBB;
+    clear: both;
+    color: #969696;
+}
+#nav li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 1em;
+    list-style-type: none;
+    border-bottom: thin solid #e0e0e0;
+    color: #1e9d36;
+    left: 0px;
+    list-style-position: inside;
+}
+#nav li a {
+    text-decoration: none;
+}
+#rightsidebar {
+    width: 180px;
+    height: 350px;
+    float: right;
+    padding-right: 20px;
+}
+#main {
+    width: 560px;
+    float: left;
+    margin: 0 10px 50px 20px;   
+    padding-right: 10px;
+}
+#logo {
+    padding: 10px;
+    float: left;
+}
+#top_menu {
+    float: right;
+    padding: 50px 20px 0px 0px;
+    font-size: 1.2em;
+    color: #270c39;
+}
+table.month td {
+    border: 1px solid rgb(221, 221, 221);
+    padding: 20px;
+    text-align: center;
+}
+table.month th {
+    padding: 2px 0px;
+    text-align: center;
+}
+th.month {
+    display: none;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    margin: 30px 0;
+}
+  
+th {
+    text-align: left;
+    background-color: #01253f;
+    color: white;
+    padding: 12px;
+ }
+  
+td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+  
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+textarea[disabled] {
+    background-color: lightgray;
+    cursor: not-allowed;
+}
+
+a {
+    color: #01253f;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: rgb(110, 109, 155);
+    text-decoration: underline;
+  }
+  
+  ::placeholder {
+    color: rgb(10, 10, 10);
+    font-size: 14px;
+  }
+
+  .success {
+    color: green;
+    font-weight: bold;
+    border: 2px solid green;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #ccffcc;
+  }
+
+  .error {
+    color: rgb(117, 17, 17);
+    font-weight: bold;
+    border: 2px solid rgb(112, 24, 24);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #ff8e8e;
+  }  
+  

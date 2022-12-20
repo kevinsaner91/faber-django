@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Displaying Connections{% endblock title %}
+
+{% block menu %}
+  <li><a href="/connections">Active Connections</a></li>
+  <li><a href="/new">New Connection</a></li>
+  <li><a href="/accept">Accept Invitation</a></li>
+{% endblock menu %}
+
+{% block content %}
+    <h1>New Connection Invitation</h1>
+
+    <textarea id="textarea" rows="10" cols="70" disabled>
+        {{ connection_invitation }}
+    </textarea>
+    <button onclick="copyText()">Copy</button>
+    
+    <script>
+    function copyText() {
+      const textarea = document.getElementById('textarea');
+      textarea.disabled = false;
+      textarea.select();
+      document.execCommand('copy');
+      textarea.disabled = true;
+    }
+    </script>
+
+
+{% endblock content %}

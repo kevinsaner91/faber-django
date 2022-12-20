@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Displaying Connections{% endblock title %}
+
+{% block menu %}
+  <li><a href="/connections">Active Connections</a></li>
+  <li><a href="/new">New Connection</a></li>
+  <li><a href="/accept">Accept Invitation</a></li>
+{% endblock menu %}
+
+{% block content %}
+  <h1>All active Connections</h1>
+
+  <table> 
+    <tr>
+      <th>Their Label</th>
+      <th>Their DID</th>
+      <th>Last Updated</th>
+    </tr>
+    {% for connection in active_connections %}
+    <tr>
+      <td><strong>{{ connection.their_label }}</strong></td>
+      <td>{{ connection.their_did }}</td>
+      <td>{{ connection.last_updated }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td><strong>{% now "m-d-y" %}</strong></td>
+      <td>No active connections</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+
+{% endblock content %}
