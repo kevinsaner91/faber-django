@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Revocation Registry{% endblock title %}
+
+{% block menu %}
+  <li><a href="/schema">Schema</a></li>
+  <li><a href="/credential-definition">Credential Definition</a></li>
+  <li><a href="/revocation-registry">Revocation Registry</a></li>
+  <ul>
+    <li><a href='/revocation-registry'>Create Revoc Reg</a></li>
+    <li><a href='/get-revocation-registry'>Show Revoc Regs</a></li>
+  </ul>
+{% endblock menu %}  
+
+{% block content %}
+  <h1>List of all Revocation Registries on the Ledger</h1>
+
+  <table> 
+    <tr>
+      <th>Revocation Registry Identifiers</th>
+    </tr>
+    {% for revocreg_id in revoc_regs %}
+    <tr>
+      <td><strong><a href='/revocation-registry/{{ revocreg_id.revocreg_id }}'><p>{{ revocreg_id.revocreg_id }}</p></a></strong></td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td><strong>{% now "m-d-y" %}</strong></td>
+      <td>There are no Revocation Registries!</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <style>
+    p {
+      word-break: break-word;
+    }
+  </style>
+
+
+{% endblock content %}

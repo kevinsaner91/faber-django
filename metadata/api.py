@@ -118,3 +118,55 @@ def get_creddef_by_id(creddef_id):
     data = json.loads(response.text)
 
     return data
+
+def create_revoc_reg(creddef_id, revoc_reg_size):
+    print('create_schema')
+
+    url = 'https://faber-api.educa.ch/revocation/create-registry'
+    data = {
+        "credential_definition_id": creddef_id,
+        "max_cred_num": revoc_reg_size
+    }
+    headers = {"Content-Type": "application/json"}
+
+
+    response = requests.post(
+        url,
+        json=data,
+        headers=headers)
+
+    print(data)
+
+    if response.status_code == 200:
+        print('successful')
+        return True
+    else:
+        return False
+
+def get_revocation_registry():
+    print('get_revocation_registry')
+    url = 'https://faber-api.educa.ch/revocation/registries/created'
+
+    response = requests.get(url, 'GET')
+    data = json.loads(response.text)
+
+    rev_rec_list = list()
+
+    for rev_rec in data["rev_reg_ids"]:
+        rev_rec_list.append(
+            {
+                "revocreg_id":rev_rec,
+            }
+        )
+                
+    return rev_rec_list
+
+def get_revocreg_by_id(revocreg_id):
+    print('get_revocreg_by_id')
+
+    url = 'https://faber-api.educa.ch/revocation/registry/' + revocreg_id    
+
+    response = requests.get(url, 'GET')
+    data = json.loads(response.text)
+
+    return data

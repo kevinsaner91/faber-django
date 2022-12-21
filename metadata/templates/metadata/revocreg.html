@@ -6,27 +6,37 @@
   <li><a href="/schema">Schema</a></li>
   <li><a href="/credential-definition">Credential Definition</a></li>
   <li><a href="/revocation-registry">Revocation Registry</a></li>
+  <ul>
+    <li><a href='/revocation-registry'>Create Revoc Reg</a></li>
+    <li><a href='/get-revocation-registry'>Show Revoc Regs</a></li>
+  </ul>
 {% endblock menu %}  
 
 {% block content %}
-    <h1>Create a Schema</h1>
+    <h1>Create a Revocation Registry</h1>
     {% if error %}
     <p class="error">
-        Creating the schema was not successful!
+        Creating the Revocation Registry was not successful!
     </p>
     {% endif %}
 
     {% if submitted %}
     <p class="success">
-        Schema submitted successfully!
+        Revocation Registry submitted successfully!
     </p>
 
     {% else %}
     <form action="" method="post" novalidate>
-        <textarea name="connection_info" rows="10" cols="70" >      
-        </textarea>
-    
-        <input type="submit" value="Accept">
+        <p>
+            <label style="margin-left: 10px;" for="Credential Definition">Credential Definition:</label>
+        </p><p>
+            <input style="margin-left: 10px;width: 300px;" type="text" id="creddef_id" name="creddef_id" placeholder="Enter a Credential Definition">
+        </p><p>
+            <label style="margin-left: 10px;" for="Revocation registry size">Revocation registry size:</label>
+        </p><p>
+            <input style="margin-left: 10px;width: 300px;" type="text" id="revoc_reg_size" name="revoc_reg_size" placeholder="Enter a Revocation registry size (Integer)">
+        </p>
+        <input style="margin-left: 10px;" type="submit" value="Create Revocation Registry">
     {% csrf_token %}
     </form>
     {% endif %}

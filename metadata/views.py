@@ -74,4 +74,36 @@ def get_creddef_detail(request, creddef_id):
     
     return render(request, 'metadata/creddef-detail.html', {'creddef_id': creddef_id, 'creddef_detail': creddef_detail})  
 
+def revocation_registry(request):
+    print('revocation_registry')
+    submitted = False
+    if request.method == 'POST':
+        creddef_id = request.POST['creddef_id']
+        revoc_reg_size = int(request.POST['revoc_reg_size'])
+
+
+        if api.create_revoc_reg(creddef_id, revoc_reg_size):
+            return HttpResponseRedirect('/revocation-registry?submitted=True')
+        else:
+           return render(request, "metadata/revocreg.html", {'error': True})  
+    else:
+        if 'submitted' in request.GET:
+            submitted = True 
+
+    return render(request,'metadata/revocreg.html', {'submitted': submitted})
+
+def get_revocation_registry(request):
+    print('get_revocation_registry')
+
+    revoc_regs = api.get_revocation_registry()
+
+    return render(request, 'metadata/get-revocreg.html', {'revoc_regs': revoc_regs})
+
+def get_revocreg_detail(request, revocreg_id):
+    print('get_revocreg_detail')
+
+    revocreg_detail = api.get_revocreg_by_id(revocreg_id)   
+    
+    return render(request, 'metadata/revocreg-detail.html', {'revocreg_id': revocreg_id, 'revocreg_detail': revocreg_detail})  
+
 

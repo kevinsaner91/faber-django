@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Displaying Connections{% endblock title %}
+
+{% block menu %}
+  <li><a href="/schema">Schema</a></li>
+  <li><a href="/credential-definition">Credential Definition</a></li>
+  <li><a href="/revocation-registry">Revocation Registry</a></li>
+  <ul>
+    <li><a href='/revocation-registry'>Create Revoc Reg</a></li>
+    <li><a href='/get-revocation-registry'>Show Revoc Regs</a></li>
+  </ul>
+{% endblock menu %}   
+
+{% block content %}
+    <h1>Revocation Registry:</h1>
+    <h1><p>{{ revocreg_id }}</p></h1>
+    <textarea id="textarea" rows="10" cols="70" disabled>
+        {{ revocreg_detail }}
+    </textarea>
+
+    <style>
+        p {
+          word-break: break-word;
+        }
+    </style>
+
+{% endblock content %}
