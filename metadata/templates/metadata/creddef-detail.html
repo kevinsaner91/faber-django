@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Credential Definition Detail{% endblock title %}
+
+{% block menu %}
+  <li><a href="/schema">Schema</a></li>
+  <li><a href="/credential-definition">Credential Definition</a></li>
+  <ul>
+    <li><a href='/credential-definition'>Create Cred Def</a></li>
+    <li><a href='/get-credential-definitions'>Show Cred Defs</a></li>
+  </ul>
+  <li><a href="/revocation-registry">Revocation Registry</a></li>
+{% endblock menu %}  
+
+{% block content %}
+    <h1>Credential Definition:</h1>
+    <h1> {{ creddef_id }}</h1>
+    <textarea id="textarea" rows="10" cols="70" disabled>
+        {{ creddef_detail }}
+    </textarea>
+
+{% endblock content %}

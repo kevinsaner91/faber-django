@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Credential Definition{% endblock title %}
+
+{% block menu %}
+  <li><a href="/schema">Schema</a></li>
+  <li><a href="/credential-definition">Credential Definition</a></li>
+  <ul>
+    <li><a href='/credential-definition'>Create Cred Def</a></li>
+    <li><a href='/get-credential-definitions'>Show Cred Defs</a></li>
+  </ul>
+  <li><a href="/revocation-registry">Revocation Registry</a></li>
+{% endblock menu %}  
+
+{% block content %}
+  <h1>List of all Credential Definitions on the Ledger</h1>
+
+  <table> 
+    <tr>
+      <th>Credential Definition Identifiers</th>
+    </tr>
+    {% for creddef_id in creddefs %}
+    <tr>
+      <td><strong><a href='/credential-definition/{{ creddef_id.creddef_id }}'>{{ creddef_id.creddef_id }}</a></strong></td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td><strong>{% now "m-d-y" %}</strong></td>
+      <td>There are no Credential Definition!</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+
+{% endblock content %}

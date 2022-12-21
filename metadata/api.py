@@ -62,3 +62,59 @@ def get_schema_by_id(schema_id):
     data = json.loads(response.text)
 
     return data
+
+def create_creddef(schema_id, tag, support_revoc, revoc_reg_size):
+    print('create_creddef')
+
+    url = 'https://faber-api.educa.ch/credential-definitions'
+    data = {
+        "revocation_registry_size": revoc_reg_size,
+        "schema_id": schema_id,
+        "support_revocation": support_revoc,
+        "tag": tag
+    }
+    headers = {"Content-Type": "application/json"}
+
+    
+
+    response = requests.post(
+        url,
+        json=data,
+        headers=headers)
+
+    print(data)
+
+    if response.status_code == 200:
+        print('successful')
+        return True
+    else:
+       return False 
+
+def get_creddefs():
+    print('get_creddefs')
+
+    url = 'https://faber-api.educa.ch/credential-definitions/created'
+
+    response = requests.get(url, 'GET')
+    data = json.loads(response.text)
+
+    creddef_list = list()
+
+    for creddef_id in data["credential_definition_ids"]:
+            creddef_list.append(
+                {
+                    "creddef_id":creddef_id
+                }
+            )
+                
+    return creddef_list
+
+def get_creddef_by_id(creddef_id):
+    print('get_creddef_by_id')
+
+    url = 'https://faber-api.educa.ch/credential-definitions/' + creddef_id    
+
+    response = requests.get(url, 'GET')
+    data = json.loads(response.text)
+
+    return data

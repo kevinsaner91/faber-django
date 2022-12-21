@@ -1,34 +1,61 @@
 {% extends "base.html" %}
 
-{% block title %}Displaying Connections{% endblock title %}
+{% block title %}Credential Definition{% endblock title %}
 
 {% block menu %}
   <li><a href="/schema">Schema</a></li>
   <li><a href="/credential-definition">Credential Definition</a></li>
+  <ul>
+    <li><a href='/credential-definition'>Create Cred Def</a></li>
+    <li><a href='/get-credential-definitions'>Show Cred Defs</a></li>
+  </ul>
   <li><a href="/revocation-registry">Revocation Registry</a></li>
 {% endblock menu %}  
 
 {% block content %}
-    <h1>Create a Schema</h1>
+    <h1>Create a Credential Definition</h1>
     {% if error %}
     <p class="error">
-        Creating the schema was not successful!
+        Creating the Credential Definition was not successful!
     </p>
     {% endif %}
 
     {% if submitted %}
     <p class="success">
-        Schema submitted successfully!
+        Credential Definition submitted successfully!
     </p>
 
     {% else %}
     <form action="" method="post" novalidate>
-        <textarea name="connection_info" rows="10" cols="70" >      
-        </textarea>
-    
-        <input type="submit" value="Accept">
+        <p>
+            <label style="margin-left: 10px;" for="Schema ID">Schema ID:</label>
+        </p><p>
+            <input style="margin-left: 10px;width: 300px;" type="text" id="schema_id" name="schema_id" placeholder="Enter a Schema ID">
+        </p><p>
+            <label style="margin-left: 10px;" for="tag">Tag:</label>
+        </p><p>
+            <input style="margin-left: 10px;width: 300px;" type="text" id="tag" name="tag" placeholder="Enter a Tag">
+        </p><p>
+            <label style="margin-left: 10px;" for="tag">Support Revocation:</label>
+            <input style="margin-left: 10px;width: 300px;" type="checkbox" id="support_revoc" name="support_revoc" onclick="toggleTextField()">
+        </p><p>
+            <label style="margin-left: 10px;display:none" id="revoc_reg_size_label" for="Revocation Registry Size">Revocation Registry Size:</label>
+        </p><p>
+            <input style="margin-left: 10px;width: 300px;display:none;" type="text" id="revoc_reg_size" name="revoc_reg_size" placeholder="Enter the size of the Revocation Registry">
+        </p>
+        <input style="margin-left: 10px;" type="submit" value="Create Schema">
     {% csrf_token %}
     </form>
     {% endif %}
+
+    <script>
+        function toggleTextField() {
+          const textField = document.getElementById('revoc_reg_size');
+          const textLabel = document.getElementById('revoc_reg_size_label')
+          const checkbox = document.getElementById('support_revoc');
+          textField.style.display = checkbox.checked ? 'block' : 'none';
+          textLabel.style.display = checkbox.checked ? 'block' : 'none';
+        }
+      </script>
 
 {% endblock content %}

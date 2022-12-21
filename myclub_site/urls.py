@@ -21,4 +21,4 @@ urlpatterns = [
     path('', include('events.urls')),
     path('', include('connections.urls')),
     path('', include('metadata.urls'))
-]
+    ]
