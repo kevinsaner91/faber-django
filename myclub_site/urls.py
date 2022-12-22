@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('events.urls')),
     path('', include('connections.urls')),
-    path('', include('metadata.urls'))
+    path('', include('metadata.urls')),
+    path('', include('credentials.urls')),
     ]

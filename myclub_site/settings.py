@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'connections.apps.ConnectionsConfig',
     'metadata.apps.MetadataConfig',
+    'credentials.apps.CredentialsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
