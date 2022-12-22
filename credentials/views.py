@@ -17,27 +17,67 @@ def select_schema(request):
 
 
 def issue_credential_detail(request, schema_id):
-        creddef_list = api.get_credential_def_from_schema_id(schema_id)
-        connections_list = connections_api.get_active_connections()
-        attributes_list = api.get_attribute_list_from_schema_id(schema_id)
-
-        return render(request, 'credentials/issue-credential-detail.html', {'creddef_list': creddef_list, 'connections_list': connections_list, 'attributes_list': attributes_list})
-
-def issue_credential(request):
-    print('issue_credential')
+    print('issue_credential_detail')
+    creddef_list = api.get_credential_def_from_schema_id(schema_id)
+    connections_list = connections_api.get_active_connections()
+    attributes_list = api.get_attribute_list_from_schema_id(schema_id)
+   
+    
     submitted = False
     if request.method == 'POST':
-        connection_info = request.POST['connection_info']
-        
-        if api.accept_connection(connection_info):
-            return HttpResponseRedirect('/accept?submitted=True')
+        attrs_list = list()
+
+        values = request.POST
+        for key, value in values.items():
+            if key == 'connection_id':
+                connection_id = value
+            elif key == 'creddef_id':
+                creddef_id = value
+            elif key == 'csrfmiddlewaretoken':
+                print(value)
+            else:
+                attrs_list.append(
+                    {
+                        'name':key,
+                        'value':value
+                    }
+                )
+
+        if api.issue_credential(connection_id, creddef_id, attrs_list):
+            return HttpResponseRedirect('/issue-credential-detail?submitted=True')
         else:
-           return render(request, "connections/accept.html", {'error': True})  
+           return render(request, "credentials/issue-credential-detail.html", {'error': True}) 
     else:
         if 'submitted' in request.GET:
-            submitted = True    
+            submitted = True 
 
-    return render(request, "connections/accept.html", {'submitted': submitted})   
+    return render(request, 'credentials/issue-credential-detail.html', {'submitted': submitted, 'creddef_list': creddef_list, 'connections_list': connections_list, 'attributes_list': attributes_list}) 
+
+def credential_exchange_records(request):
+    print('credential_exchange_records')
+
+    cred_ex_records = api.get_cred_ex_records()
+
+    return render(request,'credentials/credential_exchange_records.html', {'cred_ex_records': cred_ex_records})
+
+
+def revoke_credential(request, cred_ex_id, rev_reg_id, cred_rev_id):
+    print('revoke_credential')
+    submitted = False
+    connections_list = connections_api.get_active_connections()
+
+    if request.method == 'POST':
+        connection_id = request.POST['connection_id']
+
+        if api.revoke_credential(cred_ex_id, connection_id, rev_reg_id, cred_rev_id):
+           return HttpResponseRedirect('/revoke-credential/' + cred_ex_id + '/'+ rev_reg_id + '/' + cred_rev_id +'?submitted=True') 
+        else:
+           return render(request, "credentials/revoke-credential.html", {'error': True})        
+    else:
+        if 'submitted' in request.GET:
+            submitted = True        
+
+    return render(request, 'credentials/revoke-credential.html', {'submitted': submitted, 'connections_list': connections_list, 'rev_reg_id': rev_reg_id, 'cred_rev_id':cred_rev_id})
 
 
 
