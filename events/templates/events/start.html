@@ -5,6 +5,7 @@ Startpage
 {% endblock title %}
 
 {% block content %}
+<section id="main">
 <h3>Connections</h3>
 <li><a href="/connections">Active Connections</a></li>
 <li><a href="/new">New Connection</a></li>
@@ -30,6 +31,13 @@ Startpage
 <h3>Credentials</h3>
 <li><a href="/issue-credential">Issue Credential</a></li>
 <li><a href="/credentials">Revoke Credential</a></li>
+</section>
 
+
+<style>
+  #main li {
+    padding-left: 10px;
+  }
+</style>
 
 {% endblock content %}
