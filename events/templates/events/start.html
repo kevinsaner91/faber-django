@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Startpage
+{% endblock title %}
+
+{% block content %}
+<h3>Connections</h3>
+<li><a href="/connections">Active Connections</a></li>
+<li><a href="/new">New Connection</a></li>
+<li><a href="/accept">Accept Invitation</a></li>
+
+<h3>Metadata</h3>
+<li><a href="/schema">Schema</a></li>
+<ul>
+  <li><a href='/schema'>Create Schema</a></li>
+  <li><a href='/get-schemas'>Show Schemas</a></li>
+</ul>
+<li><a href="/credential-definition">Credential Definition</a></li>
+<ul>
+  <li><a href='/credential-definition'>Create Cred Def</a></li>
+  <li><a href='/get-credential-definitions'>Show Cred Defs</a></li>
+</ul>
+<li><a href="/revocation-registry">Revocation Registry</a></li>
+<ul>
+  <li><a href='/revocation-registry'>Create Revoc Reg</a></li>
+  <li><a href='/get-revocation-registry'>Show Revoc Regs</a></li>
+</ul>
+
+<h3>Credentials</h3>
+<li><a href="/issue-credential">Issue Credential</a></li>
+<li><a href="/credentials">Revoke Credential</a></li>
+
+
+{% endblock content %}
