@@ -56,7 +56,7 @@ def issue_credential(connection_id, creddef_id, attributes):
                 "cred_def_id": creddef_id
             }
         },
-        "trace": "false"
+        "trace": "true"
     }
     headers = {"Content-Type": "application/json"}
 
@@ -74,26 +74,41 @@ def issue_credential(connection_id, creddef_id, attributes):
     else:
         return False 
 
-def get_cred_ex_records():
-    print('get_cred_ex_records')
+def get_rev_regs():
+    print('get_rev_regs')
 
-    url = 'https://faber-api.educa.ch/issue-credential-2.0/records'
+    url = 'https://faber-api.educa.ch/revocation/registries/created'
 
     response = requests.get(url, 'GET')
     data = json.loads(response.text)
 
-    cred_ex_list = list()
+    rev_reg_list = list()
 
-    for cred_ex_record in data["results"]:
-        indy = cred_ex_record['indy']
-        cred_ex_list.append(
+    for rev_reg_id in data['rev_reg_ids']:
+        rev_reg_list.append(
+            rev_reg_id
+        )
+    return rev_reg_list   
+
+def get_credential_from_rev_reg(rev_reg_id):
+    print('get_credential_from_rev_reg')
+
+    url = 'https://faber-api.educa.ch/revocation/registry/' + rev_reg_id +'/issued/details'
+    response = requests.get(url, 'GET')
+    data = json.loads(response.text)
+
+    credentials = list()
+
+    for credential in data:
+        credentials.append(
             {
-                'cred_ex_id':indy['cred_ex_id'],
-                'rev_reg_id':indy['rev_reg_id'],
-                'cred_rev_id':indy['cred_rev_id'],
+                'cred_ex_id': credential['cred_ex_id'],
             }
         )
-    return cred_ex_list    
+    return credentials   
+
+
+     
 
 
 def revoke_credential(cred_ex_id ,connection_id, rev_reg_id, cred_rev_id):

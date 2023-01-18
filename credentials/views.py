@@ -44,7 +44,7 @@ def issue_credential_detail(request, schema_id):
                 )
 
         if api.issue_credential(connection_id, creddef_id, attrs_list):
-            return HttpResponseRedirect('/issue-credential-detail?submitted=True')
+            return HttpResponseRedirect('/issue-credential?submitted=True')
         else:
            return render(request, "credentials/issue-credential-detail.html", {'error': True}) 
     else:
@@ -53,12 +53,30 @@ def issue_credential_detail(request, schema_id):
 
     return render(request, 'credentials/issue-credential-detail.html', {'submitted': submitted, 'creddef_list': creddef_list, 'connections_list': connections_list, 'attributes_list': attributes_list}) 
 
-def credential_exchange_records(request):
+def get_rev_regs(request):
     print('credential_exchange_records')
 
-    cred_ex_records = api.get_cred_ex_records()
+    if request.method == 'POST':
+        rev_reg_id = request.POST['rev_reg_id']
 
-    return render(request,'credentials/credential_exchange_records.html', {'cred_ex_records': cred_ex_records})
+        return redirect('/issued-credentials-details/' + rev_reg_id)
+    else:
+        rev_regs = api.get_rev_regs()
+        print(rev_regs)
+
+        return render(request,'credentials/issued-credentials.html', {'rev_reg_list': rev_regs})   
+
+def get_issued_creds_by_rev_reg(request, rev_reg_id):
+    print('get_issued_creds_by_rev_reg')
+
+    credentials = api.get_credential_from_rev_reg(rev_reg_id)
+
+    print(credentials)
+
+    return render(request,'credentials/issued-credentials-details.html', {'credentials': credentials})  
+
+
+
 
 
 def revoke_credential(request, cred_ex_id, rev_reg_id, cred_rev_id):
