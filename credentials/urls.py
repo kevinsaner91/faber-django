@@ -8,4 +8,5 @@ urlpatterns = [
     path('revoke-credential/<str:cred_ex_id>/<str:rev_reg_id>/<str:cred_rev_id>', views.revoke_credential, name='revoke-credential'),
     path('revoke-credential', views.revoke_credential, name='revoke-credential'),
     path('issued-credentials-details/<str:rev_reg_id>', views.get_issued_creds_by_rev_reg, name='get_issued_creds_by_rev_reg'),
+    path('credential/<str:cred_ex_id>', views.get_revocation_status, name='get-revocation-status'),
 ]

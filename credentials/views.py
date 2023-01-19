@@ -76,7 +76,12 @@ def get_issued_creds_by_rev_reg(request, rev_reg_id):
     return render(request,'credentials/issued-credentials-details.html', {'credentials': credentials})  
 
 
+def get_revocation_status(request, cred_ex_id):
+    print('get_revocation_status')
 
+    credential = api.get_revocation_status(cred_ex_id)
+
+    return render(request,'credentials/credential-status.html', {'credential': credential})  
 
 
 def revoke_credential(request, cred_ex_id, rev_reg_id, cred_rev_id):

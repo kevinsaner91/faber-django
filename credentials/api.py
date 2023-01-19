@@ -103,12 +103,27 @@ def get_credential_from_rev_reg(rev_reg_id):
         credentials.append(
             {
                 'cred_ex_id': credential['cred_ex_id'],
+                'state': credential['state'],
+                'updated_at': credential['updated_at'],
             }
         )
     return credentials   
 
 
-     
+def get_revocation_status(cred_ex_id):
+    print('get_revocation_status')
+
+    url = 'https://faber-api.educa.ch/revocation/credential-record?cred_ex_id=' + cred_ex_id
+    response = requests.get(url, 'GET')
+    data = json.loads(response.text)
+
+    print(data['result'])
+
+    credential = data['result']
+
+    return credential   
+
+
 
 
 def revoke_credential(cred_ex_id ,connection_id, rev_reg_id, cred_rev_id):
