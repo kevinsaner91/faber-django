@@ -79,9 +79,17 @@ def get_issued_creds_by_rev_reg(request, rev_reg_id):
 def get_revocation_status(request, cred_ex_id):
     print('get_revocation_status')
 
-    credential = api.get_revocation_status(cred_ex_id)
+    if request.method == 'POST':
+        cred_rev_id = request.POST['cred_rev_id']
+        rev_reg_id = request.POST['rev_reg_id']
 
-    return render(request,'credentials/credential-status.html', {'credential': credential})  
+        if api.revoke_credential(cred_ex_id, rev_reg_id, cred_rev_id):
+           return HttpResponseRedirect('/credential/' + cred_ex_id + '?submitted=True') 
+        else:
+           return render(request, "credentials/credential-status.html", {'error': True})
+    else:
+        credential = api.get_revocation_status(cred_ex_id)
+        return render(request,'credentials/credential-status.html', {'credential': credential})  
 
 
 def revoke_credential(request, cred_ex_id, rev_reg_id, cred_rev_id):

@@ -123,10 +123,7 @@ def get_revocation_status(cred_ex_id):
 
     return credential   
 
-
-
-
-def revoke_credential(cred_ex_id ,connection_id, rev_reg_id, cred_rev_id):
+def revoke_credential(cred_ex_id , rev_reg_id, cred_rev_id):
     print('revoke_credential')
 
     url = 'https://faber-api.educa.ch/revocation/revoke'
@@ -135,7 +132,7 @@ def revoke_credential(cred_ex_id ,connection_id, rev_reg_id, cred_rev_id):
         "rev_reg_id": rev_reg_id,
         "cred_rev_id": cred_rev_id,
         "publish": "true",
-        "connection_id": connection_id,
+        "notify": False,
         "comment": "You cheated ...",
     }       
     headers = {"Content-Type": "application/json"}
@@ -149,9 +146,8 @@ def revoke_credential(cred_ex_id ,connection_id, rev_reg_id, cred_rev_id):
 
     if response.status_code == 200:
         print('revocation successful')
-        response = requests.delete('https://faber-api.educa.ch/issue-credential-2.0/records/' + cred_ex_id)
-        if response.status_code == 200:
-            return True
+        #response = requests.delete('https://faber-api.educa.ch/issue-credential-2.0/records/' + cred_ex_id)
+        return True
     else:
         return False
 
